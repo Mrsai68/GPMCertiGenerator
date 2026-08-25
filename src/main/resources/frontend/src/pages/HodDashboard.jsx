@@ -9,6 +9,8 @@ export default function HodDashboard() {
     const [fetching, setFetching] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [statusFilter, setStatusFilter] = useState('ALL');
+    const [students, setStudents] = useState([]);
+    const [fetchingStudents, setFetchingStudents] = useState(false);
 
     // Modal state for Approve / Reject
     const [selectedReq, setSelectedReq] = useState(null);
@@ -78,9 +80,22 @@ export default function HodDashboard() {
         return matchesStatus && matchesSearch;
     });
 
+    const fetchAllRegisteredStudents = async () => {
+        setFetchingStudents(true);
+        try {
+            const res = await api.get('/api/v1/admin/students');
+            setStudents(res.data || []);
+        } catch (err) {
+            console.error('Failed to fetch registered students', err);
+        } finally {
+            setFetchingStudents(false);
+        }
+    };
+
     const pendingCount = requests.filter(r => r.status === 'PENDING').length;
     const approvedCount = requests.filter(r => r.status === 'APPROVED').length;
     const rejectedCount = requests.filter(r => r.status === 'REJECTED').length;
+    const totalStudents = students.count();
 
     const hodDept = user?.department;
     const isSuperAdmin = hodDept === 'ALL' || user?.role === 'ROLE_ADMIN';
@@ -128,7 +143,7 @@ export default function HodDashboard() {
                         </div>
                         <div className="px-4 py-2 rounded-2xl glass-card bg-rose-950/40 border border-rose-800/40 text-center">
                             <span className="text-xs text-slate-400 block font-medium">Total Student Registered</span>
-                            <span className="text-lg font-bold text-rose-400">{rejectedCount}</span>
+                            <span className="text-lg font-bold text-rose-400">{totalStudents}</span>
                         </div>
                     </div>
                 </div>
