@@ -33,6 +33,7 @@ export default function HodDashboard() {
 
     useEffect(() => {
         fetchAllRequests();
+        fetchAllRegisteredStudents();
     }, []);
 
     const openActionModal = (req, type) => {
@@ -95,7 +96,7 @@ export default function HodDashboard() {
     const pendingCount = requests.filter(r => r.status === 'PENDING').length;
     const approvedCount = requests.filter(r => r.status === 'APPROVED').length;
     const rejectedCount = requests.filter(r => r.status === 'REJECTED').length;
-    const totalStudents = students.count();
+    const totalStudents = students.length;
 
     const hodDept = user?.department;
     const isSuperAdmin = hodDept === 'ALL' || user?.role === 'ROLE_ADMIN';
