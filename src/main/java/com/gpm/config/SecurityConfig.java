@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -65,7 +66,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth->
                         auth.requestMatchers("/api/v1/auth/**",
-                                        "/api/v1/public/**").permitAll()
+                                        "/api/v1/public/**", "/").permitAll()
                                 .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ROLE_ADMIN","ROLE_HOD")
                                 .requestMatchers("/api/v1/**").authenticated()
                 )
