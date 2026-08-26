@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 // Dynamically use current hostname so API calls work seamlessly from mobile devices over Wi-Fi
-const apiHost = window.location.hostname || 'localhost';
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname;
+
+const baseURL = isLocal ? 'http://localhost:8080' : 'https://gpmcertigenerator.onrender.com';
 
 const api = axios.create({
-    baseURL: `http://${apiHost}:8080`,
+    baseURL: baseURL,
 });
 
 api.interceptors.request.use(
