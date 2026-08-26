@@ -23,7 +23,7 @@ import com.lowagie.text.pdf.*;
 @Service
 public class PdfQrGenerateService {
 
-    @Value("http://localhost:3000")
+    @Value("https://gpmcertigenerator.onrender.com")
     private String frontendUrl;
 
     public byte[] generateQrCodeImage(String text, int width, int height) throws Exception {
