@@ -17,7 +17,7 @@ import BonafideLandingPage from "./pages/HomePage.jsx";
 
 const App = () => {
   return (
-      <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+      <div className="min-h-screen flex flex-col bg-transparent text-slate-800 dark:text-slate-100 transition-colors duration-200">
         <Navbar />
         <main className="flex-grow">
               <Routes>
